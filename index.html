@@ -3,111 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DiPX2025 Jabatan Teknologi Maklumat</title>
+  <title>DiPX2025 - Enter Your Staff ID</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
+    /* Reset some default styles */
+    * {
+      box-sizing: border-box;
     }
-    .logo-container {
+
+    body {
+      background: #f0f4f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
-      gap: 40px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
     }
-    .logo-container img {
-      max-height: 80px;
-      width: auto;
-      object-fit: contain;
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
     }
-    h2 {
-      margin-bottom: 20px;
-      color: #333;
+
+    h1 {
+      color: #0073e6;
+      margin-bottom: 24px;
+      font-weight: 700;
     }
+
     form {
       display: flex;
-      gap: 10px;
-      max-width: 320px;
-      width: 100%;
+      flex-direction: column;
+      gap: 15px;
     }
+
     input[type="text"] {
-      flex-grow: 1;
-      padding: 10px 15px;
-      font-size: 1rem;
-      border: 2px solid #007bff;
-      border-radius: 5px;
-      outline: none;
-      transition: border-color 0.3s;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
     }
+
     input[type="text"]:focus {
-      border-color: #0056b3;
+      border-color: #0073e6;
+      outline: none;
     }
+
     button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #007bff;
-      border: none;
-      border-radius: 5px;
+      background: #0073e6;
       color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background: #005bb5;
     }
-    @media (max-width: 480px) {
-      .logo-container {
-        gap: 20px;
-      }
-      .logo-container img {
-        max-height: 60px;
-      }
-      form {
-        flex-direction: column;
-      }
-      button {
-        width: 100%;
-      }
+
+    .message {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #d8000c;
+      font-weight: 600;
+      min-height: 18px;
     }
   </style>
 </head>
 <body>
-
-  <div class="logo-container">
-    <img src="https://drive.google.com/file/d/1RYmh7SJp0b4EEKqP3bAu_MsD06nGpJcU/view?usp=sharing" alt="Logo 1" />
+  <div class="container">
+    <h1>DiPX2025 - Jabatan Teknologi Maklumat</h1>
+    <form id="idForm" autocomplete="off">
+      <input type="text" id="userId" placeholder="Enter Your STAFF ID (e.g. 02710)" required maxlength="10" />
+      <button type="submit">Access File</button>
+    </form>
+    <div class="message" id="message"></div>
   </div>
-
-  <h2>Enter Your Staff ID to Access Evaluation File</h2>
-  <form id="idForm">
-    <input type="text" id="userId" placeholder="Enter your Staff ID" required />
-    <button type="submit">Submit</button>
-  </form>
 
   <script>
     const links = {
       "02710": "https://docs.google.com/spreadsheets/d/15ENa7Ry4cNzhqHaNpVgdUMfQptNrw3qCATDQ4-rcqEI/edit?usp=sharing",
       "03739": "https://docs.google.com/spreadsheets/d/1j47CETuIRRwGD2vC9daP985B6Y10H-1bzFmUoRAD8FY/edit?usp=sharing"
-      // add more IDs and links here
+      // Add more ID: link pairs here
     };
 
-    document.getElementById('idForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const id = document.getElementById('userId').value.trim();
-      const link = links[id];
-      if (link) {
-        window.open(link, '_blank');
+    const form = document.getElementById('idForm');
+    const userIdInput = document.getElementById('userId');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      let id = userIdInput.value.trim();
+
+      // Optional: pad ID to 5 digits with leading zeros if needed
+      id = id.padStart(5, '0');
+
+      if (links[id]) {
+        messageDiv.style.color = '#007a00';
+        messageDiv.textContent = 'ID found! Opening your file...';
+        window.open(links[id], '_blank');
+        userIdInput.value = '';
+        messageDiv.textContent = '';  // Clear message after redirect
       } else {
-        alert('ID not found. Please try again.');
+        messageDiv.style.color = '#d8000c';
+        messageDiv.textContent = 'ID not found. Please try again.';
       }
     });
   </script>
-
 </body>
 </html>
