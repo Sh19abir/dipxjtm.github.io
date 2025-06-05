@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DiPX2025 - Enter Your Staff ID</title>
   <style>
-    /* Reset some default styles */
     * {
       box-sizing: border-box;
     }
@@ -26,14 +25,27 @@
       padding: 30px 40px;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      max-width: 400px;
+      max-width: 420px;
       width: 100%;
       text-align: center;
     }
 
+    .logo-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-row img {
+      height: 50px;
+      max-width: 80px;
+      object-fit: contain;
+    }
+
     h1 {
       color: #020f1c;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       font-weight: 700;
     }
 
@@ -83,8 +95,16 @@
 </head>
 <body>
   <div class="container">
+    <!-- Logos row -->
+    <div class="logo-row">
+      <img src="jtm.png" alt="Logo 1" />
+      <img src="logo-uthm-web.png" alt="Logo 2" />
+      <img src="Logo_CeDS.png" alt="Logo 3" />
+    </div>
+
     <h1>DiPX2025</h1>
-     <h1>Jabatan Teknologi Maklumat</h1>
+    <h1>Jabatan Teknologi Maklumat</h1>
+
     <form id="idForm" autocomplete="off">
       <input type="text" id="userId" placeholder="Enter Your STAFF ID (e.g. 02723)" required maxlength="10" />
       <button type="submit">Access Evaluation File</button>
@@ -96,7 +116,6 @@
     const links = {
       "02710": "https://docs.google.com/spreadsheets/d/15ENa7Ry4cNzhqHaNpVgdUMfQptNrw3qCATDQ4-rcqEI/edit?usp=sharing",
       "03739": "https://docs.google.com/spreadsheets/d/1j47CETuIRRwGD2vC9daP985B6Y10H-1bzFmUoRAD8FY/edit?usp=sharing"
-      // Add more ID: link pairs here
     };
 
     const form = document.getElementById('idForm');
@@ -106,8 +125,6 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       let id = userIdInput.value.trim();
-
-      // Optional: pad ID to 5 digits with leading zeros if needed
       id = id.padStart(5, '0');
 
       if (links[id]) {
@@ -115,7 +132,7 @@
         messageDiv.textContent = 'ID found! Opening your file...';
         window.open(links[id], '_blank');
         userIdInput.value = '';
-        messageDiv.textContent = '';  // Clear message after redirect
+        messageDiv.textContent = '';
       } else {
         messageDiv.style.color = '#d8000c';
         messageDiv.textContent = 'ID not found. Please try again.';
